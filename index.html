@@ -9,267 +9,270 @@
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Italianno&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Crafty+Girls&display=swap" rel="stylesheet">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap');
 
-<style>
-@import url('https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap');
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-*{
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
-}
+    html,
+    body {
+      overflow-x: hidden;
+      max-width: 100vw;
+      height: 100vh; /* responsive բարձրություն */
+    }
 
-html,body{
-  overflow-x:hidden;
-  max-width:100vw;
-  height:100%;
-}
+    body {
+      background: url('dasaran.png') no-repeat center center/cover;
+      min-height: 100vh;
+      color: white;
+      transition: background 0.5s ease, color 0.5s ease;
+    }
 
-body{
-  color:white;
-  transition:color 0.5s ease;
-}
+    body.unlocked {
+      background-color: #e8e0d6;
+      background-image: none;
+      color: black;
+    }
 
-/* ═══ BACKGROUND PSEUDO-ELEMENT (iOS-safe) ═══ */
+    /* ═══ OVERLAY ═══ */
+    .overlay {
+      background-color: rgba(0, 0, 0, 0.4);
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      transition: opacity 0.8s ease;
+      z-index: 100;
+    }
 
-body::before{
-  content:'';
-  position:fixed;
-  top:0;
-  left:0;
-  width:100%;
-  height:100%;
-  background:url('dasaran.png') no-repeat center center/cover;
-  z-index:-1;
-  transition:opacity 0.5s ease;
-}
+    .overlay.hidden {
+      opacity: 0;
+      pointer-events: none;
+      display: none;
+    }
 
-body.unlocked::before{
-  opacity:0;
-}
+    /* ═══ MARQUEE ═══ */
+    .marquee-wrapper {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      overflow: hidden;
+      padding: 10px 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    }
 
-body.unlocked{
-  background-color:#e8e0d6;
-  color:black;
-}
+    .marquee-track {
+      display: inline-flex;
+      gap: 80px;
+      white-space: nowrap;
+      animation: marquee-scroll 10s linear infinite;
+    }
 
-/* ═══ OVERLAY ═══ */
+    .marquee-track span {
+      font-family: 'Great Vibes', cursive;
+      font-size: 1.5em;
+      color: rgba(255, 255, 255, 0.9);
+      letter-spacing: 0.05em;
+    }
 
-.overlay{
-  background-color:rgba(0,0,0,0.4);
-  position:fixed;
-  top:0;
-  left:0;
-  right:0;
-  bottom:0;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  justify-content:center;
-  transition:opacity 0.8s ease;
-  z-index:100;
-}
+    @keyframes marquee-scroll {
+      0% {
+        transform: translateX(0);
+      }
 
-.overlay.hidden{
-  opacity:0;
-  pointer-events:none;
-  display:none;
-}
+      100% {
+        transform: translateX(-50%);
+      }
+    }
 
-/* ═══ MARQUEE ═══ */
+    /* ═══ SLIDER ═══ */
+    .slider-text-wrapper {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-top: 80px;
+    }
 
-.marquee-wrapper{
-  position:absolute;
-  top:0;
-  left:0;
-  right:0;
-  overflow:hidden;
-  padding:10px 0;
-  border-bottom:1px solid rgba(255,255,255,0.2);
-}
+    .text {
+      font-family: 'Great Vibes', cursive;
+      font-size: 1.5em;
+      color: white;
+    }
 
-.marquee-track{
-  display:inline-flex;
-  gap:80px;
-  white-space:nowrap;
-  animation:marquee-scroll 10s linear infinite;
-}
+    .slider {
+      position: relative;
+      width: 250px;
+      height: 50px;
+      border: 2px dashed white;
+      border-radius: 25px;
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      cursor: pointer;
+      padding: 3px;
+      margin-top: 40vh;
+    }
 
-.marquee-track span{
-  font-family:'Great Vibes',cursive;
-  font-size:1.5em;
-  color:rgba(255,255,255,0.9);
-  letter-spacing:0.05em;
-}
+    @media (max-width: 768px) {
+      .slider {
+        margin-top: 55vh;
+      }
 
-@keyframes marquee-scroll{
-  0%  { transform:translateX(0); }
-  100%{ transform:translateX(-50%); }
-}
+      body {
+        background-position: center top;
+      }
 
-/* ═══ SLIDER ═══ */
+      .text {
+        font-size: 1.4em;
+        padding: 0 20px;
+        text-align: center;
+      }
+    }
 
-.slider-text-wrapper{
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  margin-top:80px;
-}
+    .circle {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: transparent;
+      border: 2px solid white;
+      position: absolute;
+      right: 3px;
+      z-index: 1;
+    }
 
-.text{
-  font-family:'Great Vibes',cursive;
-  font-size:1.5em;
-  color:white;
-}
+    .arrow {
+      width: 44px;
+      height: 44px;
+      background: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: absolute;
+      left: 3px;
+      transition: left 0.5s ease;
+      z-index: 1;
+    }
 
-.slider{
-  position:relative;
-  width:250px;
-  height:50px;
-  border:2px dashed white;
-  border-radius:25px;
-  display:flex;
-  align-items:center;
-  justify-content:flex-start;
-  cursor:pointer;
-  padding:3px;
-  margin-top:40vh;
-}
+    .arrow img {
+      width: 42px;
+      height: 42px;
+    }
 
-@media (max-width:768px){
-  .slider{
-    margin-top:55vh;
-  }
-  .text{
-    font-size:1.4em;
-    padding:0 20px;
-    text-align:center;
-  }
-}
+    /* ═══ MAIN CONTENT ═══ */
+    .main-content {
+      display: none;
+    }
 
-.arrow{
-  width:44px;
-  height:44px;
-  background:white;
-  border-radius:50%;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  position:absolute;
-  left:3px;
-  transition:left 0.5s ease;
-  z-index:1;
-}
-
-.arrow img{
-  width:42px;
-  height:42px;
-}
-
-/* ═══ MAIN CONTENT ═══ */
-
-.main-content{
-  display:none;
-}
-
-.main-content.active{
-  display:block;
-}
-</style>
+    .main-content.active {
+      display: block;
+    }
+  </style>
 </head>
 
 <body>
 
-<!-- ═══ OVERLAY ═══ -->
-<div class="overlay" id="overlay">
-
-  <!-- վազող տող -->
-  <div class="marquee-wrapper">
-    <div class="marquee-track">
-      <span>Ու հնչեց զանգը, հնչեց</span>
-      <span>🔔</span>
-      <span>Ու հնչեց զանգը, հնչեց</span>
-      <span>🔔</span>
-      <span>Ու հնչեց զանգը, հնչեց</span>
-      <span>🔔</span>
-      <span>Ու հնչեց զանգը, հնչեց</span>
-      <span>🔔</span>
+  <!-- ═══ OVERLAY ═══ -->
+  <div class="overlay" id="overlay">
+    <!-- վազող տող -->
+    <div class="marquee-wrapper">
+      <div class="marquee-track">
+        <span>Ու հնչեց զանգը, հնչեց</span>
+        <span>🔔</span>
+        <span>Ու հնչեց զանգը, հնչեց</span>
+        <span>🔔</span>
+        <span>Ու հնչեց զանգը, հնչեց</span>
+        <span>🔔</span>
+        <span>Ու հնչեց զանգը, հնչեց</span>
+        <span>🔔</span>
+      </div>
     </div>
-  </div>
 
-  <div class="slider-text-wrapper">
-    <div class="slider" id="slider">
-      <div class="arrow" id="arrow">
-        <img src="https://uploads.onecompiler.io/43gpeysj6/44gbepdr5/zang.png" alt="bell">
+    <div class="slider-text-wrapper">
+      <div class="slider" id="slider">
+        <div class="arrow" id="arrow">
+          <img src="zang.png" alt="bell">
+        </div>
       </div>
     </div>
   </div>
-</div>
 
-<!-- ═══ MAIN CONTENT ═══ -->
-<div class="main-content" id="mainContent">
-  <div class="invitation-card">
-    <div class="content" id="content">
-      
-      <!-- այստեղ հետո կարող ես քո հիմնական կոնտենտը դնել -->
-
+  <!-- ═══ MAIN CONTENT ═══ -->
+  <div class="main-content" id="mainContent">
+    <div class="invitation-card">
+      <div class="content" id="content">
+        <!-- այստեղ հետո կարող ես քո հիմնական կոնտենտը դնել -->
+      </div>
     </div>
   </div>
-</div>
 
-<script>
-const arrow = document.getElementById('arrow');
-const slider = document.getElementById('slider');
-const overlay = document.getElementById('overlay');
-const mainContent = document.getElementById('mainContent');
-const body = document.body;
+  <script>
+    /* ═══════════════════════════════════════════
+       SLIDER / UNLOCK
+    ═══════════════════════════════════════════ */
+    const arrow = document.getElementById('arrow');
+    const slider = document.getElementById('slider');
+    const overlay = document.getElementById('overlay');
+    const mainContent = document.getElementById('mainContent');
+    const body = document.body;
 
-let isDragging = false, startX, currentX;
-let maxX = slider.offsetWidth - arrow.offsetWidth - 6;
+    let isDragging = false, startX, currentX;
+    let maxX = slider.offsetWidth - arrow.offsetWidth - 6;
 
-arrow.addEventListener('mousedown', e => {
-  isDragging = true;
-  startX = e.clientX;
-});
+    arrow.addEventListener('mousedown', e => {
+      isDragging = true;
+      startX = e.clientX;
+    });
 
-window.addEventListener('mouseup', () => {
-  if (!isDragging) return;
-  isDragging = false;
-  if (parseInt(arrow.style.left || 3) >= maxX - 10) unlock();
-  else arrow.style.left = '3px';
-});
+    window.addEventListener('mouseup', () => {
+      if (!isDragging) return;
+      isDragging = false;
+      if (parseInt(arrow.style.left || 3) >= maxX - 10) unlock();
+      else arrow.style.left = '3px';
+    });
 
-window.addEventListener('mousemove', e => {
-  if (!isDragging) return;
-  currentX = e.clientX - startX;
-  arrow.style.left = `${Math.min(Math.max(3, currentX + 3), maxX)}px`;
-});
+    window.addEventListener('mousemove', e => {
+      if (!isDragging) return;
+      currentX = e.clientX - startX;
+      arrow.style.left = `${Math.min(Math.max(3, currentX + 3), maxX)}px`;
+    });
 
-arrow.addEventListener('touchstart', e => {
-  isDragging = true;
-  startX = e.touches[0].clientX;
-}, { passive: true });
+    arrow.addEventListener('touchstart', e => {
+      isDragging = true;
+      startX = e.touches[0].clientX;
+    });
 
-window.addEventListener('touchend', () => {
-  if (!isDragging) return;
-  isDragging = false;
-  if (parseInt(arrow.style.left || 3) >= maxX - 10) unlock();
-  else arrow.style.left = '3px';
-});
+    window.addEventListener('touchend', () => {
+      if (!isDragging) return;
+      isDragging = false;
+      if (parseInt(arrow.style.left || 3) >= maxX - 10) unlock();
+      else arrow.style.left = '3px';
+    });
 
-window.addEventListener('touchmove', e => {
-  if (!isDragging) return;
-  currentX = e.touches[0].clientX - startX;
-  arrow.style.left = `${Math.min(Math.max(3, currentX + 3), maxX)}px`;
-}, { passive: true });
+    window.addEventListener('touchmove', e => {
+      if (!isDragging) return;
+      currentX = e.touches[0].clientX - startX;
+      arrow.style.left = `${Math.min(Math.max(3, currentX + 3), maxX)}px`;
+    });
 
-function unlock() {
-  overlay.classList.add('hidden');
-  mainContent.classList.add('active');
-  body.classList.add('unlocked');
-  document.getElementById('content').classList.add('show');
-}
-</script>
+    function unlock() {
+      overlay.classList.add('hidden');
+      mainContent.classList.add('active');
+      body.classList.add('unlocked');
+      document.getElementById('content').classList.add('show');
+    }
+  </script>
+
 </body>
 
 </html>
