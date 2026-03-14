@@ -22,24 +22,34 @@
 html,body{
   overflow-x:hidden;
   max-width:100vw;
+  height:100%;
 }
 
 body{
-  background:url('dasaran.png') no-repeat center center/cover;
-  background-attachment:fixed;
-  min-height:100%;
-  height:100%;
   color:white;
-  transition:background 0.5s ease,color 0.5s ease;
+  transition:color 0.5s ease;
 }
 
-html{
+/* ═══ BACKGROUND PSEUDO-ELEMENT (iOS-safe) ═══ */
+
+body::before{
+  content:'';
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
   height:100%;
+  background:url('dasaran.png') no-repeat center center/cover;
+  z-index:-1;
+  transition:opacity 0.5s ease;
+}
+
+body.unlocked::before{
+  opacity:0;
 }
 
 body.unlocked{
   background-color:#e8e0d6;
-  background-image:none;
   color:black;
 }
 
@@ -130,17 +140,11 @@ body.unlocked{
   .slider{
     margin-top:55vh;
   }
-}
-
-.circle{
-  width:44px;
-  height:44px;
-  border-radius:50%;
-  background:transparent;
-  border:2px solid white;
-  position:absolute;
-  right:3px;
-  z-index:1;
+  .text{
+    font-size:1.4em;
+    padding:0 20px;
+    text-align:center;
+  }
 }
 
 .arrow{
@@ -170,14 +174,6 @@ body.unlocked{
 
 .main-content.active{
   display:block;
-}
-
-@media (max-width:768px){
-  .text{
-    font-size:1.4em;
-    padding:0 20px;
-    text-align:center;
-  }
 }
 </style>
 </head>
@@ -222,9 +218,6 @@ body.unlocked{
 </div>
 
 <script>
-/* ═══════════════════════════════════════════
-   SLIDER / UNLOCK
-═══════════════════════════════════════════ */
 const arrow = document.getElementById('arrow');
 const slider = document.getElementById('slider');
 const overlay = document.getElementById('overlay');
@@ -255,7 +248,7 @@ window.addEventListener('mousemove', e => {
 arrow.addEventListener('touchstart', e => {
   isDragging = true;
   startX = e.touches[0].clientX;
-});
+}, { passive: true });
 
 window.addEventListener('touchend', () => {
   if (!isDragging) return;
@@ -268,7 +261,7 @@ window.addEventListener('touchmove', e => {
   if (!isDragging) return;
   currentX = e.touches[0].clientX - startX;
   arrow.style.left = `${Math.min(Math.max(3, currentX + 3), maxX)}px`;
-});
+}, { passive: true });
 
 function unlock() {
   overlay.classList.add('hidden');
