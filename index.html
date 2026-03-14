@@ -25,12 +25,15 @@
       height: 100vh; /* responsive բարձրություն */
     }
 
-    body {
-      background: url('dasaran.png') no-repeat center center/cover;
-      min-height: 100vh;
-      color: white;
-      transition: background 0.5s ease, color 0.5s ease;
-    }
+body {
+  background: url('dasaran.png') no-repeat center center;
+  background-size: contain; /* պատասխանում է ամբողջ նկարին */
+  background-color: #000;    /* լրացնում է չծածկված տարածքը */
+  min-height: 100vh;
+  width: 100vw;
+  color: white;
+  transition: background 0.5s ease, color 0.5s ease;
+}
 
     body.unlocked {
       background-color: #e8e0d6;
