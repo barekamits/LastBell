@@ -182,22 +182,19 @@
       50%       { opacity: 0; }
     }
 
-    /* Ոսկե գիծ */
     .grad-line {
       height: 2px;
       width: 0;
       background: linear-gradient(90deg, transparent, #d4af37, transparent);
       margin: 0 auto 32px;
-      transition: width 0.7s ease-out;
+      transition: width 0.4s ease-out;
     }
     .grad-line.expanded { width: 240px; }
 
-    /* Նկար */
     .hero-img-wrap {
       opacity: 0;
       transform: scale(0.88);
-      transition: opacity 1s ease, transform 1s cubic-bezier(0.34, 1.3, 0.64, 1);
-      margin-top: 0; /* փոխված -130px-ից */
+      transition: opacity 0.5s ease, transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
     }
     .hero-img-wrap.visible {
       opacity: 1;
@@ -221,10 +218,10 @@
     /* ═══ INVITE TEXT ═══ */
     .invite-text-section {
       width: 100%;
-      padding: 24px 30px 24px; /* հավասար վերևից և ներքևից */
+      padding: 24px 30px 24px;
       opacity: 0;
-      transform: translateY(25px);
-      transition: opacity 0.8s ease, transform 0.8s ease;
+      transform: translateY(20px);
+      transition: opacity 0.45s ease, transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
     }
     .invite-text-section.visible {
       opacity: 1;
@@ -234,7 +231,6 @@
       font-family: 'Vrdznagir', cursive;
       font-size: 30px;
       color: #5a3e28;
-      margin-top: 0; /* հեռացված -16px */
       line-height: 1.5;
     }
     @media (max-width: 768px) {
@@ -245,7 +241,6 @@
       font-size: 22px;
       color: #3a2c1e;
       line-height: 1.9;
-      margin-bottom: 0; /* հեռացված 24px ներքևի margin */
     }
     @media (max-width: 768px) {
       .invite-body { font-size: 18px; }
@@ -253,21 +248,18 @@
 
     /* ═══ CALENDAR ═══ */
     .calendar {
-      margin: 24px auto 40px; /* հավասարեցված վերևի margin */
+      margin: 24px auto 40px;
       font-size: 18px;
       letter-spacing: 1px;
       padding: 0 20px;
       opacity: 0;
-  transform: translateY(25px);
-  transition: opacity 0.8s ease, transform 0.8s ease;
+      transform: translateY(20px);
+      transition: opacity 0.45s ease, transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
     }
-    
     .calendar.visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-    
-    
+      opacity: 1;
+      transform: translateY(0);
+    }
     @media (max-width: 768px) {
       .calendar { font-size: 16px; }
     }
@@ -311,19 +303,10 @@
       justify-content: center;
       align-items: center;
     }
-    .heart-svg {
-      position: absolute;
-      width: 80%;
-      height: 80%;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      pointer-events: none;
-    }
     .heart-text {
       position: relative;
       z-index: 1;
-      font-weight: normal
+      font-weight: normal;
       font-size: 16px;
     }
     @media (max-width: 768px) {
@@ -342,14 +325,279 @@
       .script { font-size: 30px; margin: 10px 15px 25px; }
     }
 
-   
+    /* ═══════════════════════════════════
+       PHOTO GALLERY
+    ═══════════════════════════════════ */
+    .gallery-section {
+      padding: 40px 20px 70px;
+      background: #f5f0e8;
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .gallery-section.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Ornamental divider with title */
+    .gallery-divider {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 32px;
+      padding: 0 10px;
+    }
+    .gallery-divider::before,
+    .gallery-divider::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, #b8915a, transparent);
+    }
+    .gallery-title {
+      font-family: 'Vrdznagir', cursive;
+      font-size: 20px;
+      color: #5a3e28;
+      line-height: 1.65;
+      text-align: center;
+      flex-shrink: 0;
+    }
+    @media (max-width: 540px) {
+      .gallery-title { font-size: 15px; }
+      .gallery-divider { gap: 8px; }
+    }
+
+    /* Slideshow container */
+    .slideshow-wrap {
+      position: relative;
+      max-width: 500px;
+      margin: 0 auto;
+      user-select: none;
+    }
+    .slides-viewport {
+      overflow: hidden;
+      border-radius: 14px;
+      box-shadow: 0 10px 36px rgba(90,62,40,0.2), 0 2px 8px rgba(90,62,40,0.1);
+      background: #e0d5c0;
+      aspect-ratio: 4 / 3;
+      position: relative;
+    }
+    .slide {
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      transition: opacity 0.8s ease;
+    }
+    .slide.active { opacity: 1; }
+    .slide img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    /* Placeholder */
+    .slide-placeholder {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      background: linear-gradient(135deg, #ede5d5 0%, #d8ccb8 100%);
+      color: #9a7a5a;
+      font-family: 'Vrdznagir', cursive;
+      font-size: 14px;
+    }
+    .slide-placeholder .ph-icon { font-size: 44px; opacity: 0.55; }
+
+    /* Arrows */
+    .slide-arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 42px;
+      height: 42px;
+      background: rgba(245,240,232,0.88);
+      border: 1px solid rgba(180,140,80,0.4);
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      color: #5a3e28;
+      z-index: 5;
+      transition: background 0.2s, transform 0.2s;
+      box-shadow: 0 3px 10px rgba(90,62,40,0.15);
+    }
+    .slide-arrow:hover {
+      background: rgba(212,175,55,0.3);
+      transform: translateY(-50%) scale(1.1);
+    }
+    .slide-arrow.prev { left: -22px; }
+    .slide-arrow.next { right: -22px; }
+    @media (max-width: 560px) {
+      .slide-arrow.prev { left: 6px; }
+      .slide-arrow.next { right: 6px; }
+    }
+
+    /* Dots */
+    .slide-dots {
+      display: flex;
+      justify-content: center;
+      gap: 9px;
+      margin-top: 18px;
+    }
+    .dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: rgba(90,62,40,0.22);
+      cursor: pointer;
+      transition: background 0.3s, transform 0.3s;
+      border: none;
+      padding: 0;
+    }
+    .dot.active {
+      background: #d4af37;
+      transform: scale(1.35);
+    }
+
+    /* ═══ LOCATION SECTION ═══ */
+    .location-section {
+      padding: 50px 20px 70px;
+      background: #f5f0e8;
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .location-section.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .location-divider {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 28px;
+      padding: 0 10px;
+    }
+    .location-divider::before,
+    .location-divider::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, #b8915a, transparent);
+    }
+    .location-icon {
+      font-size: 22px;
+      flex-shrink: 0;
+    }
+    .school-name {
+      font-family: 'Vrdznagir', cursive;
+      font-size: 24px;
+      color: #5a3e28;
+      margin-bottom: 6px;
+      line-height: 1.5;
+    }
+    .school-address {
+      font-family: 'Vrdznagir', cursive;
+      font-size: 17px;
+      color: #7a5a38;
+      margin-bottom: 24px;
+      line-height: 1.6;
+    }
+    @media (max-width: 768px) {
+      .school-name { font-size: 20px; }
+      .school-address { font-size: 15px; }
+    }
+
+    /* Directions button */
+    .directions-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: 'Vrdznagir', cursive;
+      font-size: 16px;
+      color: #f5f0e8;
+      background: linear-gradient(135deg, #8b5e2e, #c49040);
+      border: none;
+      border-radius: 28px;
+      padding: 12px 28px;
+      cursor: pointer;
+      text-decoration: none;
+      box-shadow: 0 4px 16px rgba(90,62,40,0.28);
+      transition: transform 0.2s, box-shadow 0.2s;
+      margin-bottom: 28px;
+    }
+    .directions-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 7px 22px rgba(90,62,40,0.35);
+    }
+    .directions-btn .btn-icon { font-size: 18px; }
+
+    /* Map container — hidden by default */
+    .map-frame {
+      width: 100%;
+      max-width: 520px;
+      margin: 0 auto;
+      border-radius: 14px;
+      overflow: hidden;
+      box-shadow: 0 10px 36px rgba(90,62,40,0.2), 0 2px 8px rgba(90,62,40,0.1);
+      border: 1px solid rgba(180,140,80,0.3);
+      display: none;
+    }
+    .map-frame.open { display: block; }
+    .map-frame iframe {
+      width: 100%;
+      height: 320px;
+      border: none;
+      display: block;
+    }
+
+    /* ═══ CLOSING TEXT ═══ */
+    .closing-section {
+      padding: 40px 20px 80px;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .closing-section.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .closing-divider {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 28px;
+      padding: 0 10px;
+    }
+    .closing-divider::before,
+    .closing-divider::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, #b8915a, transparent);
+    }
+    .closing-text {
+      font-family: 'Vrdznagir', cursive;
+      font-size: 28px;
+      color: #5a3e28;
+      line-height: 1.7;
+      text-shadow: 1px 1px 6px rgba(180,140,60,0.2);
+    }
+    @media (max-width: 768px) {
+      .closing-text { font-size: 22px; }
+    }
   </style>
 </head>
 <body>
 
   <!-- ═══ INTRO SCREEN ═══ -->
   <div id="introScreen">
-
     <div class="marquee-wrapper">
       <div class="marquee-track">
         <span>Ու հնչեց զանգը, հնչեց</span> <span>🎓</span>
@@ -381,14 +629,12 @@
         <span>Ու հնչեց զանգը, հնչեց</span> <span>🎓</span>
       </div>
     </div>
-
   </div>
 
   <!-- ═══ MAIN CONTENT ═══ -->
   <div id="main-content">
 
     <div class="hero-section">
-
       <div class="grad-title" id="gradTitle"><span class="cursor" id="typeCursor"></span></div>
       <div class="grad-line" id="gradLine"></div>
 
@@ -400,41 +646,142 @@
         <div class="invite-greeting">Հարգելի՛ ծնողներ, ուսուցիչներ և հյուրեր</div>
         <div class="invite-body">
           Մեծ ուրախությամբ հրավիրում ենք Ձեզ<br>
-          ներկա գտնվելու մեր Վեևջին զանգի<br>
+          ներկա գտնվելու մեր Վերջին զանգի<br>
           միջոցառմանը։
         </div>
       </div>
-
     </div>
 
     <!-- CALENDAR -->
-
-    <div class="calendar">
-
+    <div class="calendar" id="calendarEl">
       <div class="month">Մայիս</div>
-
       <div class="weekdays">
-
         <div>Կիր</div><div>Երկ</div><div>Երք</div><div>Չոր</div><div>Հնգ</div><div>Ուր</div><div>Շբթ</div>
+      </div>
+      <div class="dates">
+        <div>17</div>
+        <div>18</div><div>19</div><div>20</div><div>21</div>
+        <div class="heart-wrapper">
+          <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px;">
+            <span style="font-size:16px;line-height:0;transform:translateX(5px);">🎓</span>
+            <span class="heart-text" style="line-height:2;">22</span>
+          </div>
+        </div>
+        <div>23</div>
+      </div>
+    </div>
 
+    <!-- ═══ PHOTO GALLERY ═══ -->
+    <div class="gallery-section" id="galleryEl">
+
+      <div class="gallery-divider">
+        <div class="gallery-title">Խենթ ու խելառ մեր օրերին<br>ասում ենք մենք մնաք բարով</div>
       </div>
 
-<div class="dates">
-  <div>17</div>
-  <div>18</div><div>19</div><div>20</div><div>21</div>
-<div class="heart-wrapper">
-  <div style="display:flex; flex-direction:column; align-items:center; justify-content:center; gap:1px;">
-    <span style="font-size:16px; line-height:0; transform:translateX(5px);">🎓</span>
-    <span class="heart-text" style="line-height:2;">22</span>
-  </div>
+      <div class="slideshow-wrap">
+        <button class="slide-arrow prev" id="prevBtn">&#8249;</button>
+
+        <div class="slides-viewport" id="slidesViewport">
+          <!--
+          ══════════════════════════════════════════
+          ՖՈՏՈՆԵՐ ԱՎԵԼԱՑՆԵԼՈՒ ՀԱՄԱՐ՝
+          Փոխարինիր placeholder-ները հետևյալ կոդով.
+
+          <div class="slide">
+            <img src="ՖՈՏՈՅԻ_ՀՂՈՒՄԸ.jpg" alt="...">
+          </div>
+
+          Կամ պարզապես ավելացրու նոր slide-ներ
+          ══════════════════════════════════════════
+          -->
+          <div class="slide active">
+            <div class="slide-placeholder">
+              <span class="ph-icon">📸</span>
+              <span>Ֆոտո 1</span>
+            </div>
+          </div>
+          <div class="slide">
+            <div class="slide-placeholder">
+              <span class="ph-icon">📸</span>
+              <span>Ֆոտո 2</span>
+            </div>
+          </div>
+          <div class="slide">
+            <div class="slide-placeholder">
+              <span class="ph-icon">📸</span>
+              <span>Ֆոտո 3</span>
+            </div>
+          </div>
+          <div class="slide">
+            <div class="slide-placeholder">
+              <span class="ph-icon">📸</span>
+              <span>Ֆոտո 4</span>
+            </div>
+          </div>
+          <div class="slide">
+            <div class="slide-placeholder">
+              <span class="ph-icon">📸</span>
+              <span>Ֆոտո 5</span>
+            </div>
+          </div>
+        </div>
+
+        <button class="slide-arrow next" id="nextBtn">&#8250;</button>
+      </div>
+
+      <div class="slide-dots" id="slideDots"></div>
 </div>
-  <div>23</div>
-</div>
+    <!-- /gallery -->
+    <!-- ═══ LOCATION ═══ -->
+    <div class="location-section" id="locationEl">
+
+      <div class="location-divider">
+        <span class="location-icon">📍</span>
+      </div>
+
+      <!-- ԴՊՐՈՑԻ ԱՆՈՒՆԸ — փոխիր -->
+      <div class="school-name">ԴՊՐՈՑԻ ԱՆՈՒՆԸ</div>
+
+      <!-- ՀԱՍՑԵՆ — փոխիր -->
+      <div class="school-address">ՀԱՍՑԵՆ, ՔԱՂԱՔ</div>
+
+      <!-- Կոճակ — href-ում Google Maps հղումը դիր (սովորական, ոչ embed) -->
+      <a class="directions-btn" id="directionsBtn" href="#" onclick="toggleMap(event)">
+        <span>Ինչպես հասնել</span>
+      </a>
+
+      <!-- ՔԱՐՏԵԶ — src-ում Google Maps embed հղումը դիր -->
+      <div class="map-frame" id="mapFrame">
+        <iframe
+          src="YOUR_GOOGLE_MAPS_EMBED_URL"
+          allowfullscreen=""
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade">
+        </iframe>
+      </div>
+
+    </div>
+    <!-- /location -->
+
+    <!-- ═══ CLOSING ═══ -->
+    <div class="closing-section" id="closingEl">
+      <div class="closing-divider"></div>
+      <div class="closing-text">Սիրով սպասում ենք բոլորիդ 🎓</div>
+    </div>
+
+  </div><!-- /main-content -->
+
+  <!-- ═══ AUDIO ═══ -->
+  <audio id="bgMusic" loop preload="auto">
+    <source src="YOUR_SONG_URL_HERE.mp3" type="audio/mpeg">
+  </audio>
 
   <script>
+    /* ── Bell / Intro ── */
     const bellWrap    = document.getElementById('bellWrap');
     const introScreen = document.getElementById('introScreen');
     const mainContent = document.getElementById('main-content');
+    const bgMusic     = document.getElementById('bgMusic');
 
     setTimeout(() => {
       bellWrap.classList.add('visible');
@@ -442,58 +789,110 @@
     }, 600);
 
     bellWrap.addEventListener('click', () => {
-      introScreen.style.transition = 'opacity 0.6s ease';
+      bgMusic.volume = 0;
+      bgMusic.play().catch(() => {});
+      let vol = 0;
+      const fadeIn = setInterval(() => {
+        vol = Math.min(vol + 0.05, 1);
+        bgMusic.volume = vol;
+        if (vol >= 1) clearInterval(fadeIn);
+      }, 100);
+
+      introScreen.style.transition = 'opacity 0.5s ease';
       introScreen.style.opacity = '0';
       introScreen.style.pointerEvents = 'none';
       mainContent.classList.add('active');
       document.body.style.overflow = 'auto';
       document.documentElement.style.overflow = 'auto';
-      setTimeout(() => introScreen.style.display = 'none', 600);
-      setTimeout(startTyping, 500);
+      setTimeout(() => introScreen.style.display = 'none', 500);
+      setTimeout(startTyping, 300);
     });
 
+    /* ── Typing ── */
     function startTyping() {
       const titleEl = document.getElementById('gradTitle');
       const text    = 'Շրջանավարտ 2026';
-      const chars = [...text];
+      const chars   = [...text];
       let i = 0;
 
       function typeNext() {
         if (i < chars.length) {
-          const typed = chars.slice(0, i + 1).join('');
-          titleEl.innerHTML = typed + '<span class="cursor" id="typeCursor"></span>';
+          titleEl.innerHTML = chars.slice(0, i + 1).join('') + '<span class="cursor" id="typeCursor"></span>';
           i++;
-          let delay = 90 + (Math.random() * 80 - 40);
-          if (chars[i - 1] === ' ') delay += 100;
-          if (i === 11) delay += 180;
-          setTimeout(typeNext, Math.max(40, delay));
+          let delay = 55 + (Math.random() * 35 - 17);
+          if (chars[i - 1] === ' ') delay += 65;
+          setTimeout(typeNext, Math.max(30, delay));
         } else {
-         setTimeout(() => {
-  const cur = document.getElementById('typeCursor');
-  if (cur) cur.classList.add('hidden');
-  setTimeout(() => {
-    document.getElementById('gradLine').classList.add('expanded');
-  }, 150);
-  setTimeout(() => {
-    document.getElementById('heroImg').classList.add('visible');
-  }, 450);
-  setTimeout(() => {
-    document.getElementById('inviteText').classList.add('visible');
-  }, 850);
-  setTimeout(() => {
-    document.querySelector('.calendar').classList.add('visible');
-  }, 1250);
-}, 1200);
+          setTimeout(() => {
+            const cur = document.getElementById('typeCursor');
+            if (cur) cur.classList.add('hidden');
+            setTimeout(() => document.getElementById('gradLine').classList.add('expanded'), 120);
+            setTimeout(() => document.getElementById('heroImg').classList.add('visible'), 340);
+            setTimeout(() => document.getElementById('inviteText').classList.add('visible'), 600);
+            setTimeout(() => document.getElementById('calendarEl').classList.add('visible'), 850);
+            setTimeout(() => document.getElementById('galleryEl').classList.add('visible'), 1150);
+            setTimeout(() => document.getElementById('locationEl').classList.add('visible'), 1450);
+            setTimeout(() => document.getElementById('closingEl').classList.add('visible'), 1700);
+          }, 550);
         }
       }
-
       typeNext();
     }
 
-    function toggleMap(id) {
-      const el = document.getElementById(id);
-      el.style.display = (el.style.display === 'none' || el.style.display === '') ? 'block' : 'none';
+    /* ── Slideshow ── */
+    const slides     = Array.from(document.querySelectorAll('.slide'));
+    const dotsWrap   = document.getElementById('slideDots');
+    const prevBtn    = document.getElementById('prevBtn');
+    const nextBtn    = document.getElementById('nextBtn');
+
+    let current         = 0;
+    let autoTimer       = null;
+    const AUTO_INTERVAL = 3500;
+
+    /* Build dots */
+    slides.forEach((_, i) => {
+      const d = document.createElement('button');
+      d.className = 'dot' + (i === 0 ? ' active' : '');
+      d.addEventListener('click', () => goTo(i));
+      dotsWrap.appendChild(d);
+    });
+
+    function getDots() { return Array.from(dotsWrap.querySelectorAll('.dot')); }
+
+    function goTo(n) {
+      slides[current].classList.remove('active');
+      getDots()[current].classList.remove('active');
+      current = (n + slides.length) % slides.length;
+      slides[current].classList.add('active');
+      getDots()[current].classList.add('active');
     }
+
+    function startAuto() {
+      clearInterval(autoTimer);
+      autoTimer = setInterval(() => goTo(current + 1), AUTO_INTERVAL);
+    }
+    function stopAuto() { clearInterval(autoTimer); }
+
+    prevBtn.addEventListener('click', () => {
+      goTo(current - 1);
+    });
+    nextBtn.addEventListener('click', () => {
+      goTo(current + 1);
+    });
+
+    /* Swipe (mobile) */
+    let touchStartX = 0;
+    const vp = document.getElementById('slidesViewport');
+    vp.addEventListener('touchstart', e => { touchStartX = e.touches[0].clientX; }, { passive: true });
+    vp.addEventListener('touchend', e => {
+      const dx = e.changedTouches[0].clientX - touchStartX;
+      if (Math.abs(dx) > 40) {
+        goTo(dx < 0 ? current + 1 : current - 1);
+        }
+    });
+
+    /* Start auto-play after gallery animates in */
+    setTimeout(startAuto, 1800);
   </script>
 </body>
 </html>
