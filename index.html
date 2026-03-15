@@ -15,13 +15,14 @@
       background: #f5f0e8;
     }
 
-@font-face {
-  font-family: 'Vrdznagir';
-  src: url('Vrdznagir.otf') format('opentype');
-  font-weight: normal;
-  font-style: normal;
-}
+    @font-face {
+      font-family: 'Vrdznagir';
+      src: url('Vrdznagir.otf') format('opentype');
+      font-weight: normal;
+      font-style: normal;
+    }
 
+    /* ═══ INTRO SCREEN ═══ */
     #introScreen {
       position: fixed;
       inset: 0;
@@ -47,16 +48,16 @@
     .marquee-track {
       display: inline-flex;
       gap: 20px;
-     word-spacing: 5px;
+      word-spacing: 5px;
       white-space: nowrap;
       animation: marquee-scroll 10s linear infinite;
     }
-  .marquee-track span {
-    font-family: 'Vrdznagir', cursive; /* լոկալ ֆոնտ + fallback */
-    font-size: 1.4em;                  /* վրձնագիր տեսք */
-    color: #5a3e28;
-    text-shadow: 1px 1px 2px rgba(0,0,0,0.2); /* թեթև ստվեր, ինչպես ներկով գրված */
-  }
+    .marquee-track span {
+      font-family: 'Vrdznagir', cursive;
+      font-size: 1.4em;
+      color: #5a3e28;
+      text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+    }
     @keyframes marquee-scroll {
       0%   { transform: translateX(0); }
       100% { transform: translateX(-50%); }
@@ -71,7 +72,6 @@
       position: relative;
       min-height: 0;
     }
-
     .photo {
       flex: 1;
       min-height: 0;
@@ -81,14 +81,12 @@
       overflow: hidden;
       background: #f5f0e8;
     }
-
     .photo img {
       width: 200%;
       height: 120%;
       object-fit: contain;
       display: block;
     }
-
     .photo-gap {
       height: 80px;
       flex-shrink: 0;
@@ -123,69 +121,457 @@
     }
 
     /* ═══ MAIN CONTENT ═══ */
-    #mainContent {
+    #main-content {
       display: none;
-      position: fixed;
-      inset: 0;
-      overflow-y: auto;
-      background: #f5f0e8;
-      opacity: 0;
-      transition: opacity 0.6s ease;
+      visibility: hidden;
+      padding: 0;
+      max-width: 800px;
+      margin: 0 auto;
+      text-align: center;
+      font-size: 24px;
+      line-height: 1.5;
+      z-index: 1;
+      position: relative;
+      min-height: 100vh;
+      box-sizing: border-box;
     }
-    #mainContent.active  { display: block; }
-    #mainContent.visible { opacity: 1; }
+    #main-content.active {
+      display: block;
+      visibility: visible;
+    }
+    @media (max-width: 768px) {
+      #main-content { font-size: 20px; }
+    }
+
+    /* ═══ HERO SECTION ═══ */
+    .hero-section {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 50px 20px 40px;
+      background: #f5f0e8;
+    }
+
+    /* ═══ TYPING TITLE ═══ */
+    .grad-title {
+      font-family: 'Vrdznagir', cursive;
+      font-size: 52px;
+      color: #5a3e28;
+      text-shadow: 2px 2px 8px rgba(180,140,60,0.3);
+      letter-spacing: 4px;
+      line-height: 1.3;
+      margin-bottom: 8px;
+      min-height: 1.4em;
+    }
+    @media (max-width: 768px) {
+      .grad-title { font-size: 34px; letter-spacing: 2px; }
+    }
+
+    .cursor {
+      display: inline-block;
+      width: 3px;
+      height: 0.85em;
+      background: #5a3e28;
+      vertical-align: middle;
+      margin-left: 2px;
+      animation: blink 0.65s step-start infinite;
+    }
+    .cursor.hidden { display: none; }
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50%       { opacity: 0; }
+    }
+
+    /* Ոսկե գիծ */
+    .grad-line {
+      height: 2px;
+      width: 0;
+      background: linear-gradient(90deg, transparent, #d4af37, transparent);
+      margin: 0 auto 32px;
+      transition: width 0.7s ease-out;
+    }
+    .grad-line.expanded { width: 240px; }
+
+    /* Նկար */
+    .hero-img-wrap {
+      opacity: 0;
+      transform: scale(0.88);
+      transition: opacity 1s ease, transform 1s cubic-bezier(0.34, 1.3, 0.64, 1);
+      margin-top: 0; /* փոխված -130px-ից */
+    }
+    .hero-img-wrap.visible {
+      opacity: 1;
+      transform: scale(1);
+    }
+    .hero-img-wrap img {
+      max-width: 320px;
+      width: 100%;
+      display: block;
+      filter: drop-shadow(0 8px 28px rgba(90,62,40,0.22));
+      animation: floatHero 5s ease-in-out infinite alternate;
+    }
+    @keyframes floatHero {
+      0%   { transform: translateY(0); }
+      100% { transform: translateY(-10px); }
+    }
+    @media (max-width: 768px) {
+      .hero-img-wrap img { max-width: 230px; }
+    }
+
+    /* ═══ INVITE TEXT ═══ */
+    .invite-text-section {
+      width: 100%;
+      padding: 24px 30px 24px; /* հավասար վերևից և ներքևից */
+      opacity: 0;
+      transform: translateY(25px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+    .invite-text-section.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .invite-greeting {
+      font-family: 'Vrdznagir', cursive;
+      font-size: 30px;
+      color: #5a3e28;
+      margin-top: 0; /* հեռացված -16px */
+      line-height: 1.5;
+    }
+    @media (max-width: 768px) {
+      .invite-greeting { font-size: 24px; }
+    }
+    .invite-body {
+      font-family: 'Vrdznagir', cursive;
+      font-size: 22px;
+      color: #3a2c1e;
+      line-height: 1.9;
+      margin-bottom: 0; /* հեռացված 24px ներքևի margin */
+    }
+    @media (max-width: 768px) {
+      .invite-body { font-size: 18px; }
+    }
+
+    /* ═══ CALENDAR ═══ */
+    .calendar {
+      margin: 24px auto 40px; /* հավասարեցված վերևի margin */
+      font-size: 18px;
+      letter-spacing: 1px;
+      padding: 0 20px;
+    }
+    @media (max-width: 768px) {
+      .calendar { font-size: 16px; }
+    }
+    .calendar .month {
+      font-family: 'Vrdznagir';
+      font-weight: bold;
+      font-size: 35px;
+      margin-bottom: 10px;
+    }
+    @media (max-width: 768px) {
+      .calendar .month { font-size: 28px; }
+    }
+    .calendar .weekdays {
+      font-family: 'Vrdznagir';
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      max-width: 420px;
+      margin: 0 auto 10px;
+    }
+    .calendar .dates {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      max-width: 420px;
+      margin: 0 auto;
+    }
+    @media (max-width: 768px) {
+      .calendar .weekdays,
+      .calendar .dates { max-width: 300px; }
+    }
+    .dates > div {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      aspect-ratio: 1 / 1;
+    }
+    .heart-wrapper {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .heart-svg {
+      position: absolute;
+      width: 80%;
+      height: 80%;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+    }
+    .heart-text {
+      position: relative;
+      z-index: 1;
+      font-weight: bold;
+      font-size: 16px;
+    }
+    @media (max-width: 768px) {
+      .heart-text { font-size: 14px; }
+    }
+
+    /* ═══ SCRIPT ═══ */
+    .script {
+      font-family: 'Vrdznagir';
+      font-size: 44px;
+      margin: 10px 20px 30px;
+      color: #3a2c1e;
+      line-height: 1.5;
+    }
+    @media (max-width: 768px) {
+      .script { font-size: 30px; margin: 10px 15px 25px; }
+    }
+
+    /* ═══ INVITATION CARD ═══ */
+    .invitation {
+      background: white;
+      width: 100%;
+      max-width: 400px;
+      padding: 60px 40px;
+      text-align: center;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+      border-radius: 15px;
+      position: relative;
+      overflow: hidden;
+      margin: 20px auto 60px;
+      box-sizing: border-box;
+    }
+    @media (max-width: 768px) {
+      .invitation { padding: 40px 25px; margin: 15px auto 50px; max-width: 350px; }
+    }
+    .invitation::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, #d4af37, #f4e87c, #d4af37);
+    }
+    .icon-img {
+      display: block;
+      margin: 0 auto 25px;
+      max-width: 80px;
+      max-height: 80px;
+      object-fit: contain;
+    }
+    @media (max-width: 768px) {
+      .icon-img { max-width: 60px; max-height: 60px; margin: 0 auto 15px; }
+    }
+    .ceremony-title, .reception-title {
+      font-family: 'Vrdznagir';
+      font-size: 40px;
+      font-style: italic;
+      color: #8b7355;
+      margin-bottom: 10px;
+      font-weight: 400;
+    }
+    @media (max-width: 768px) {
+      .ceremony-title, .reception-title { font-size: 28px; }
+    }
+    .venue-name {
+      font-size: 20px;
+      font-weight: 700;
+      color: #333;
+      margin-bottom: 5px;
+      letter-spacing: 2px;
+    }
+    @media (max-width: 768px) {
+      .venue-name { font-size: 16px; letter-spacing: 1px; }
+    }
+    .address {
+      font-size: 14px;
+      color: #666;
+      margin-bottom: 20px;
+      line-height: 1.4;
+    }
+    @media (max-width: 768px) {
+      .address { font-size: 12px; }
+    }
+    .time {
+      font-size: 28px;
+      font-weight: 700;
+      color: #333;
+      margin-bottom: 5px;
+    }
+    @media (max-width: 768px) {
+      .time { font-size: 22px; }
+    }
+    .divider {
+      height: 2px;
+      background: linear-gradient(90deg, transparent, #d4af37, transparent);
+      margin: 40px 0;
+    }
+    @media (max-width: 768px) {
+      .divider { margin: 25px 0; }
+    }
+    a.map-link {
+      text-decoration: none;
+      color: #d4af37;
+      font-weight: 600;
+      font-size: 14px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      margin-bottom: 30px;
+      cursor: pointer;
+    }
+    @media (max-width: 768px) {
+      a.map-link { font-size: 12px; margin-bottom: 20px; }
+    }
+    a.map-link svg {
+      fill: #d4af37;
+      width: 16px;
+      height: 16px;
+    }
   </style>
 </head>
 <body>
 
+  <!-- ═══ INTRO SCREEN ═══ -->
   <div id="introScreen">
 
-<div class="marquee-wrapper">
-  <div class="marquee-track">
-    <span>Ու հնչեց զանգը, հնչեց</span> <span>🎓</span>
-    <span>Ու հնչեց զանգը, հնչեց</span> <span>🎓</span>
-    <span>Ու հնչեց զանգը, հնչեց</span> <span>🎓</span>
-    <span>Ու հնչեց զանգը, հնչեց</span> <span>🎓</span>
-  </div>
-</div>
+    <div class="marquee-wrapper">
+      <div class="marquee-track">
+        <span>Ու հնչեց զանգը, հնչեց</span> <span>🎓</span>
+        <span>Ու հնչեց զանգը, հնչեց</span> <span>🎓</span>
+        <span>Ու հնչեց զանգը, հնչեց</span> <span>🎓</span>
+        <span>Ու հնչեց զանգը, հնչեց</span> <span>🎓</span>
+      </div>
+    </div>
 
     <div class="images-area">
-
       <div class="photo">
-        <img src="dasaran.png" alt="photo 1">
+        <img src="https://uploads.onecompiler.io/43gpeysj6/44gbepdr5/dasaran.png" alt="photo 1">
       </div>
-
       <div class="photo-gap">
         <div class="bell-wrap" id="bellWrap">
-          <img src="zang.png" alt="bell">
+          <img src="https://uploads.onecompiler.io/43gpeysj6/44gbepdr5/zang.png" alt="bell">
         </div>
       </div>
-
       <div class="photo">
-        <img src="2.png" alt="photo 2">
+        <img src="https://uploads.onecompiler.io/43gpeysj6/44gbepdr5/2.png" alt="photo 2">
       </div>
-
     </div>
 
     <div class="marquee-wrapper bottom-bar">
-  <div class="marquee-track">
-    <span>Ու հնչեց զանգը, հնչեց</span> <span>🎓</span>
-    <span>Ու հնչեց զանգը, հնչեց</span> <span>🎓</span>
-    <span>Ու հնչեց զանգը, հնչեց</span> <span>🎓</span>
-    <span>Ու հնչեց զանգը, հնչեց</span> <span>🎓</span>
-  </div>
+      <div class="marquee-track">
+        <span>Ու հնչեց զանգը, հնչեց</span> <span>🎓</span>
+        <span>Ու հնչեց զանգը, հնչեց</span> <span>🎓</span>
+        <span>Ու հնչեց զանգը, հնչեց</span> <span>🎓</span>
+        <span>Ու հնչեց զանգը, հնչեց</span> <span>🎓</span>
+      </div>
     </div>
 
   </div>
 
-  <div id="mainContent">
-    <h1 style="text-align:center; padding: 60px 20px;">Վերջին զանգ 🎉</h1>
+  <!-- ═══ MAIN CONTENT ═══ -->
+  <div id="main-content">
+
+    <div class="hero-section">
+
+      <div class="grad-title" id="gradTitle"><span class="cursor" id="typeCursor"></span></div>
+      <div class="grad-line" id="gradLine"></div>
+
+      <div class="hero-img-wrap" id="heroImg">
+        <img src="https://uploads.onecompiler.io/43gpeysj6/44gbepdr5/nersinkar.png" alt="Graduation">
+      </div>
+
+      <div class="invite-text-section" id="inviteText">
+        <div class="invite-greeting">Հարգելի՛ ծնողներ, ուսուցիչներ և հյուրեր</div>
+        <div class="invite-body">
+          Մեծ ուրախությամբ հրավիրում ենք Ձեզ<br>
+          ներկա գտնվելու մեր Վեևջին զանգի<br>
+          միջոցառմանը։
+        </div>
+      </div>
+
+    </div>
+
+    <!-- CALENDAR -->
+    <div class="calendar">
+      <div class="month">Հուլիս</div>
+      <div class="weekdays">
+        <div>Կիր</div><div>Երկ</div><div>Երք</div><div>Չոր</div><div>Հնգ</div><div>Ուր</div><div>Շբթ</div>
+      </div>
+      <div class="dates">
+        <div class="heart-wrapper">
+          <svg class="heart-svg" viewBox="0 0 60 60">
+            <path d="M30 52 C10 35,5 20,20 15 A10 10 0 0 1 30 20 A10 10 0 0 1 40 15 C55 20,50 35,30 52 Z"
+              fill="none" stroke="#000" stroke-dasharray="2,3" stroke-width="1"/>
+          </svg>
+          <div class="heart-text">6</div>
+        </div>
+        <div>7</div><div>8</div><div>9</div><div>10</div><div>11</div><div>12</div>
+      </div>
+    </div>
+
+    <div class="script">
+      Սիրով կսպասենք Ձեզ<br>
+      մեր կյանքի կարևորագույն օրը<br>
+      միասին նշելու
+    </div>
+
+    <!-- INVITATION CARD -->
+    <div class="invitation">
+
+      <img src="image-removebg-preview.png" alt="Եկեղեցի" class="icon-img" />
+      <div class="ceremony-title">Եկեղեցի</div>
+      <div class="venue-name">ՍՈՒՐԲ ՀՈՎՀԱՆՆԵՍ</div>
+      <div class="venue-name">ՄԿՐՏԻՉ ԵԿԵՂԵՑԻ</div>
+      <div class="time">16։00</div>
+
+      <a class="map-link" onclick="toggleMap('map1')">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+          <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5
+            c-1.38 0-2.5-1.12-2.5-2.5S10.62 6.5 12 6.5s2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
+        </svg>
+        Տեսնել քարտեզում
+      </a>
+      <div id="map1" style="display:none; margin-top:20px;">
+        <iframe
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3043.993396642969!2d44.6314737!3d40.2758969!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x406aa1cd852829d9%3A0xd8c583e01d008291!2sSaint%20John%20the%20Baptist%20Church!5e0!3m2!1sen!2sam!4v1750075153422!5m2!1sen!2sam"
+          width="100%" height="300" style="border:0;" allowfullscreen="" loading="lazy">
+        </iframe>
+      </div>
+
+      <div class="divider"></div>
+
+      <img src="https://assets.onecompiler.app/43gpeysj6/43keb2mje/champagne-glasses.png" alt="Հյուրասիրություն" class="icon-img" />
+      <div class="reception-title">Ռեստորան</div>
+      <div class="venue-name">Վասպուրական Ռեստորանային Համալիր</div>
+      <div class="address">Կոտայք<br>103 Քոչինյան Փողոց</div>
+      <div class="time">17։30</div>
+
+      <a class="map-link" onclick="toggleMap('map2')">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+          <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5
+            c-1.38 0-2.5-1.12-2.5-2.5S10.62 6.5 12 6.5s2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
+        </svg>
+        Տեսնել քարտեզում
+      </a>
+      <div id="map2" style="display:none; margin-top:20px;">
+        <iframe
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3047.9419113779395!2d44.60390097551598!3d40.188106169523245!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x406aa4a1dcdc8c95%3A0x89d31a3a89ed3394!2sVaspurakan%20Hotel%20%26%20Restaurant!5e0!3m2!1shy!2sam!4v1749835738613!5m2!1shy!2sam"
+          width="100%" height="300" style="border:0;" allowfullscreen loading="lazy">
+        </iframe>
+      </div>
+
+    </div>
   </div>
 
   <script>
     const bellWrap    = document.getElementById('bellWrap');
     const introScreen = document.getElementById('introScreen');
-    const mainContent = document.getElementById('mainContent');
+    const mainContent = document.getElementById('main-content');
 
     setTimeout(() => {
       bellWrap.classList.add('visible');
@@ -197,11 +583,51 @@
       introScreen.style.opacity = '0';
       introScreen.style.pointerEvents = 'none';
       mainContent.classList.add('active');
-      requestAnimationFrame(() => {
-        requestAnimationFrame(() => mainContent.classList.add('visible'));
-      });
+      document.body.style.overflow = 'auto';
+      document.documentElement.style.overflow = 'auto';
       setTimeout(() => introScreen.style.display = 'none', 600);
+      setTimeout(startTyping, 500);
     });
+
+    function startTyping() {
+      const titleEl = document.getElementById('gradTitle');
+      const text    = 'Շրջանավարտ 2026';
+      const chars = [...text];
+      let i = 0;
+
+      function typeNext() {
+        if (i < chars.length) {
+          const typed = chars.slice(0, i + 1).join('');
+          titleEl.innerHTML = typed + '<span class="cursor" id="typeCursor"></span>';
+          i++;
+          let delay = 90 + (Math.random() * 80 - 40);
+          if (chars[i - 1] === ' ') delay += 100;
+          if (i === 11) delay += 180;
+          setTimeout(typeNext, Math.max(40, delay));
+        } else {
+          setTimeout(() => {
+            const cur = document.getElementById('typeCursor');
+            if (cur) cur.classList.add('hidden');
+            setTimeout(() => {
+              document.getElementById('gradLine').classList.add('expanded');
+            }, 150);
+            setTimeout(() => {
+              document.getElementById('heroImg').classList.add('visible');
+            }, 450);
+            setTimeout(() => {
+              document.getElementById('inviteText').classList.add('visible');
+            }, 850);
+          }, 1200);
+        }
+      }
+
+      typeNext();
+    }
+
+    function toggleMap(id) {
+      const el = document.getElementById(id);
+      el.style.display = (el.style.display === 'none' || el.style.display === '') ? 'block' : 'none';
+    }
   </script>
 </body>
 </html>
