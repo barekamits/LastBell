@@ -257,7 +257,17 @@
       font-size: 18px;
       letter-spacing: 1px;
       padding: 0 20px;
+      opacity: 0;
+  transform: translateY(25px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
     }
+    
+    .calendar.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+    
+    
     @media (max-width: 768px) {
       .calendar { font-size: 16px; }
     }
@@ -332,106 +342,7 @@
       .script { font-size: 30px; margin: 10px 15px 25px; }
     }
 
-    /* ═══ INVITATION CARD ═══ */
-    .invitation {
-      background: white;
-      width: 100%;
-      max-width: 400px;
-      padding: 60px 40px;
-      text-align: center;
-      box-shadow: 0 20px 40px rgba(0,0,0,0.1);
-      border-radius: 15px;
-      position: relative;
-      overflow: hidden;
-      margin: 20px auto 60px;
-      box-sizing: border-box;
-    }
-    @media (max-width: 768px) {
-      .invitation { padding: 40px 25px; margin: 15px auto 50px; max-width: 350px; }
-    }
-    .invitation::before {
-      content: '';
-      position: absolute;
-      top: 0; left: 0; right: 0;
-      height: 3px;
-      background: linear-gradient(90deg, #d4af37, #f4e87c, #d4af37);
-    }
-    .icon-img {
-      display: block;
-      margin: 0 auto 25px;
-      max-width: 80px;
-      max-height: 80px;
-      object-fit: contain;
-    }
-    @media (max-width: 768px) {
-      .icon-img { max-width: 60px; max-height: 60px; margin: 0 auto 15px; }
-    }
-    .ceremony-title, .reception-title {
-      font-family: 'Vrdznagir';
-      font-size: 40px;
-      font-style: italic;
-      color: #8b7355;
-      margin-bottom: 10px;
-      font-weight: 400;
-    }
-    @media (max-width: 768px) {
-      .ceremony-title, .reception-title { font-size: 28px; }
-    }
-    .venue-name {
-      font-size: 20px;
-      font-weight: 700;
-      color: #333;
-      margin-bottom: 5px;
-      letter-spacing: 2px;
-    }
-    @media (max-width: 768px) {
-      .venue-name { font-size: 16px; letter-spacing: 1px; }
-    }
-    .address {
-      font-size: 14px;
-      color: #666;
-      margin-bottom: 20px;
-      line-height: 1.4;
-    }
-    @media (max-width: 768px) {
-      .address { font-size: 12px; }
-    }
-    .time {
-      font-size: 28px;
-      font-weight: 700;
-      color: #333;
-      margin-bottom: 5px;
-    }
-    @media (max-width: 768px) {
-      .time { font-size: 22px; }
-    }
-    .divider {
-      height: 2px;
-      background: linear-gradient(90deg, transparent, #d4af37, transparent);
-      margin: 40px 0;
-    }
-    @media (max-width: 768px) {
-      .divider { margin: 25px 0; }
-    }
-    a.map-link {
-      text-decoration: none;
-      color: #d4af37;
-      font-weight: 600;
-      font-size: 14px;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      margin-bottom: 30px;
-      cursor: pointer;
-    }
-    @media (max-width: 768px) {
-      a.map-link { font-size: 12px; margin-bottom: 20px; }
-    }
-    a.map-link svg {
-      fill: #d4af37;
-      width: 16px;
-      height: 16px;
-    }
+   
   </style>
 </head>
 <body>
@@ -497,76 +408,28 @@
     </div>
 
     <!-- CALENDAR -->
+
     <div class="calendar">
-      <div class="month">Հուլիս</div>
+
+      <div class="month">Մայիս</div>
+
       <div class="weekdays">
+
         <div>Կիր</div><div>Երկ</div><div>Երք</div><div>Չոր</div><div>Հնգ</div><div>Ուր</div><div>Շբթ</div>
-      </div>
-      <div class="dates">
-        <div class="heart-wrapper">
-          <svg class="heart-svg" viewBox="0 0 60 60">
-            <path d="M30 52 C10 35,5 20,20 15 A10 10 0 0 1 30 20 A10 10 0 0 1 40 15 C55 20,50 35,30 52 Z"
-              fill="none" stroke="#000" stroke-dasharray="2,3" stroke-width="1"/>
-          </svg>
-          <div class="heart-text">6</div>
-        </div>
-        <div>7</div><div>8</div><div>9</div><div>10</div><div>11</div><div>12</div>
-      </div>
-    </div>
 
-    <div class="script">
-      Սիրով կսպասենք Ձեզ<br>
-      մեր կյանքի կարևորագույն օրը<br>
-      միասին նշելու
-    </div>
-
-    <!-- INVITATION CARD -->
-    <div class="invitation">
-
-      <img src="image-removebg-preview.png" alt="Եկեղեցի" class="icon-img" />
-      <div class="ceremony-title">Եկեղեցի</div>
-      <div class="venue-name">ՍՈՒՐԲ ՀՈՎՀԱՆՆԵՍ</div>
-      <div class="venue-name">ՄԿՐՏԻՉ ԵԿԵՂԵՑԻ</div>
-      <div class="time">16։00</div>
-
-      <a class="map-link" onclick="toggleMap('map1')">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-          <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5
-            c-1.38 0-2.5-1.12-2.5-2.5S10.62 6.5 12 6.5s2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
-        </svg>
-        Տեսնել քարտեզում
-      </a>
-      <div id="map1" style="display:none; margin-top:20px;">
-        <iframe
-          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3043.993396642969!2d44.6314737!3d40.2758969!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x406aa1cd852829d9%3A0xd8c583e01d008291!2sSaint%20John%20the%20Baptist%20Church!5e0!3m2!1sen!2sam!4v1750075153422!5m2!1sen!2sam"
-          width="100%" height="300" style="border:0;" allowfullscreen="" loading="lazy">
-        </iframe>
       </div>
 
-      <div class="divider"></div>
-
-      <img src="https://assets.onecompiler.app/43gpeysj6/43keb2mje/champagne-glasses.png" alt="Հյուրասիրություն" class="icon-img" />
-      <div class="reception-title">Ռեստորան</div>
-      <div class="venue-name">Վասպուրական Ռեստորանային Համալիր</div>
-      <div class="address">Կոտայք<br>103 Քոչինյան Փողոց</div>
-      <div class="time">17։30</div>
-
-      <a class="map-link" onclick="toggleMap('map2')">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-          <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5
-            c-1.38 0-2.5-1.12-2.5-2.5S10.62 6.5 12 6.5s2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
-        </svg>
-        Տեսնել քարտեզում
-      </a>
-      <div id="map2" style="display:none; margin-top:20px;">
-        <iframe
-          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3047.9419113779395!2d44.60390097551598!3d40.188106169523245!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x406aa4a1dcdc8c95%3A0x89d31a3a89ed3394!2sVaspurakan%20Hotel%20%26%20Restaurant!5e0!3m2!1shy!2sam!4v1749835738613!5m2!1shy!2sam"
-          width="100%" height="300" style="border:0;" allowfullscreen loading="lazy">
-        </iframe>
-      </div>
-
+<div class="dates">
+  <div>17</div>
+  <div>18</div><div>19</div><div>20</div><div>21</div>
+  <div class="heart-wrapper">
+    <div style="display:flex; flex-direction:column; align-items:center; line-height:1.1;">
+      <span style="font-size:16px;">🎓</span>
+      <span class="heart-text">22</span>
     </div>
   </div>
+  <div>23</div>
+</div>
 
   <script>
     const bellWrap    = document.getElementById('bellWrap');
@@ -605,19 +468,22 @@
           if (i === 11) delay += 180;
           setTimeout(typeNext, Math.max(40, delay));
         } else {
-          setTimeout(() => {
-            const cur = document.getElementById('typeCursor');
-            if (cur) cur.classList.add('hidden');
-            setTimeout(() => {
-              document.getElementById('gradLine').classList.add('expanded');
-            }, 150);
-            setTimeout(() => {
-              document.getElementById('heroImg').classList.add('visible');
-            }, 450);
-            setTimeout(() => {
-              document.getElementById('inviteText').classList.add('visible');
-            }, 850);
-          }, 1200);
+         setTimeout(() => {
+  const cur = document.getElementById('typeCursor');
+  if (cur) cur.classList.add('hidden');
+  setTimeout(() => {
+    document.getElementById('gradLine').classList.add('expanded');
+  }, 150);
+  setTimeout(() => {
+    document.getElementById('heroImg').classList.add('visible');
+  }, 450);
+  setTimeout(() => {
+    document.getElementById('inviteText').classList.add('visible');
+  }, 850);
+  setTimeout(() => {
+    document.querySelector('.calendar').classList.add('visible');
+  }, 1250);
+}, 1200);
         }
       }
 
