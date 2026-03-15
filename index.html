@@ -155,7 +155,7 @@
     /* ═══ TYPING TITLE ═══ */
     .grad-title {
       font-family: 'Vrdznagir', cursive;
-      font-size: 52px;
+      font-size: 62px;
       color: #5a3e28;
       text-shadow: 2px 2px 8px rgba(180,140,60,0.3);
       letter-spacing: 4px;
@@ -164,7 +164,7 @@
       min-height: 1.4em;
     }
     @media (max-width: 768px) {
-      .grad-title { font-size: 34px; letter-spacing: 2px; }
+      .grad-title { font-size: 42px; letter-spacing: 2px; }
     }
 
     .cursor {
@@ -218,7 +218,7 @@
     /* ═══ INVITE TEXT ═══ */
     .invite-text-section {
       width: 100%;
-      padding: 24px 30px 24px;
+      padding: 28px 20px 28px;
       opacity: 0;
       transform: translateY(20px);
       transition: opacity 0.45s ease, transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
@@ -227,29 +227,64 @@
       opacity: 1;
       transform: translateY(0);
     }
+    .invite-inner {
+      display: inline-block;
+      position: relative;
+      padding: 40px 44px;
+    }
+    .invite-inner::before,
+    .invite-inner::after {
+      content: '';
+      position: absolute;
+      width: 36px;
+      height: 36px;
+      border-color: #c49040;
+      border-style: solid;
+    }
+    .invite-inner::before {
+      top: 0; left: 0;
+      border-width: 3px 0 0 3px;
+    }
+    .invite-inner::after {
+      bottom: 0; right: 0;
+      border-width: 0 3px 3px 0;
+    }
+    .invite-inner .corner-tr,
+    .invite-inner .corner-bl {
+      position: absolute;
+      width: 36px;
+      height: 36px;
+      border-color: #c49040;
+      border-style: solid;
+    }
+    .invite-inner .corner-tr { top: 0; right: 0; border-width: 3px 3px 0 0; }
+    .invite-inner .corner-bl { bottom: 0; left: 0; border-width: 0 0 3px 3px; }
     .invite-greeting {
       font-family: 'Vrdznagir', cursive;
       font-size: 30px;
       color: #5a3e28;
       line-height: 1.5;
+      margin-bottom: 16px;
+      
     }
     @media (max-width: 768px) {
-      .invite-greeting { font-size: 24px; }
+      .invite-greeting { font-size: 30px; }
     }
     .invite-body {
       font-family: 'Vrdznagir', cursive;
-      font-size: 22px;
+      font-size: 26px;
       color: #3a2c1e;
       line-height: 1.9;
     }
     @media (max-width: 768px) {
-      .invite-body { font-size: 18px; }
+      .invite-body { font-size: 22px; }
+      .invite-inner { padding: 28px 24px; }
     }
 
     /* ═══ CALENDAR ═══ */
     .calendar {
       margin: 24px auto 40px;
-      font-size: 18px;
+      font-size: 22px;
       letter-spacing: 1px;
       padding: 0 20px;
       opacity: 0;
@@ -261,16 +296,16 @@
       transform: translateY(0);
     }
     @media (max-width: 768px) {
-      .calendar { font-size: 16px; }
+      .calendar { font-size: 20px; }
     }
     .calendar .month {
       font-family: 'Vrdznagir';
       font-weight: bold;
-      font-size: 35px;
+      font-size: 42px;
       margin-bottom: 10px;
     }
     @media (max-width: 768px) {
-      .calendar .month { font-size: 28px; }
+      .calendar .month { font-size: 34px; }
     }
     .calendar .weekdays {
       font-family: 'Vrdznagir';
@@ -325,9 +360,7 @@
       .script { font-size: 30px; margin: 10px 15px 25px; }
     }
 
-    /* ═══════════════════════════════════
-       PHOTO GALLERY
-    ═══════════════════════════════════ */
+    /* ═══ PHOTO GALLERY ═══ */
     .gallery-section {
       padding: 40px 20px 70px;
       background: #f5f0e8;
@@ -339,8 +372,6 @@
       opacity: 1;
       transform: translateY(0);
     }
-
-    /* Ornamental divider with title */
     .gallery-divider {
       display: flex;
       align-items: center;
@@ -357,18 +388,17 @@
     }
     .gallery-title {
       font-family: 'Vrdznagir', cursive;
-      font-size: 20px;
+      font-size: 26px;
       color: #5a3e28;
       line-height: 1.65;
       text-align: center;
       flex-shrink: 0;
     }
     @media (max-width: 540px) {
-      .gallery-title { font-size: 15px; }
+      .gallery-title { font-size: 18px; }
       .gallery-divider { gap: 8px; }
     }
 
-    /* Slideshow container */
     .slideshow-wrap {
       position: relative;
       max-width: 500px;
@@ -396,7 +426,6 @@
       object-fit: cover;
       display: block;
     }
-    /* Placeholder */
     .slide-placeholder {
       width: 100%;
       height: 100%;
@@ -412,7 +441,6 @@
     }
     .slide-placeholder .ph-icon { font-size: 44px; opacity: 0.55; }
 
-    /* Arrows */
     .slide-arrow {
       position: absolute;
       top: 50%;
@@ -443,7 +471,6 @@
       .slide-arrow.next { right: 6px; }
     }
 
-    /* Dots */
     .slide-dots {
       display: flex;
       justify-content: center;
@@ -497,30 +524,29 @@
     }
     .school-name {
       font-family: 'Vrdznagir', cursive;
-      font-size: 24px;
+      font-size: 30px;
       color: #5a3e28;
       margin-bottom: 6px;
       line-height: 1.5;
     }
     .school-address {
       font-family: 'Vrdznagir', cursive;
-      font-size: 17px;
+      font-size: 22px;
       color: #7a5a38;
       margin-bottom: 24px;
       line-height: 1.6;
     }
     @media (max-width: 768px) {
-      .school-name { font-size: 20px; }
-      .school-address { font-size: 15px; }
+      .school-name { font-size: 26px; }
+      .school-address { font-size: 18px; }
     }
 
-    /* Directions button */
     .directions-btn {
       display: inline-flex;
       align-items: center;
       gap: 8px;
       font-family: 'Vrdznagir', cursive;
-      font-size: 16px;
+      font-size: 20px;
       color: #f5f0e8;
       background: linear-gradient(135deg, #8b5e2e, #c49040);
       border: none;
@@ -538,7 +564,6 @@
     }
     .directions-btn .btn-icon { font-size: 18px; }
 
-    /* Map container — hidden by default */
     .map-frame {
       width: 100%;
       max-width: 520px;
@@ -557,7 +582,24 @@
       display: block;
     }
 
-    /* ═══ CLOSING TEXT ═══ */
+    /* ═══ CLOSING ═══ */
+    .closing-img-wrap {
+      padding: 40px 20px 0;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .closing-img-wrap.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .closing-img-wrap img {
+      max-width: 580px;
+      width: 100%;
+      display: block;
+      margin: 0 auto;
+      filter: drop-shadow(0 8px 28px rgba(90,62,40,0.22));
+    }
     .closing-section {
       padding: 40px 20px 80px;
       opacity: 0;
@@ -584,13 +626,13 @@
     }
     .closing-text {
       font-family: 'Vrdznagir', cursive;
-      font-size: 28px;
+      font-size: 44px;
       color: #5a3e28;
       line-height: 1.7;
       text-shadow: 1px 1px 6px rgba(180,140,60,0.2);
     }
     @media (max-width: 768px) {
-      .closing-text { font-size: 22px; }
+      .closing-text { font-size: 34px; }
     }
   </style>
 </head>
@@ -643,11 +685,17 @@
       </div>
 
       <div class="invite-text-section" id="inviteText">
-        <div class="invite-greeting">Հարգելի՛ ծնողներ, ուսուցիչներ և հյուրեր</div>
-        <div class="invite-body">
-          Մեծ ուրախությամբ հրավիրում ենք Ձեզ<br>
-          ներկա գտնվելու մեր Վերջին զանգի<br>
-          միջոցառմանը։
+        <div class="invite-inner">
+          <span class="corner-tr"></span>
+          <span class="corner-bl"></span>
+          <div class="invite-greeting">Սիրելի ուսուցիչներ, ծնողներ և հյուրեր</div>
+          <div class="invite-body">
+            Վերջին զանգի այս խորհրդանշական օրը մեզ համար առանձնահատուկ կարևոր է,<br>
+            և ցանկանում ենք այն ամբողջական դարձնել Ձեր թանկ ներկայությամբ։<br><br>
+            Սրտանց հրավիրում ենք Ձեզ՝<br>
+            միասին փակելու դպրոցական ջերմ հիշողությունների վերջին էջը։<br><br>
+            Սիրով՝ 12-րդ դասարան
+          </div>
         </div>
       </div>
     </div>
@@ -695,34 +743,19 @@
           ══════════════════════════════════════════
           -->
           <div class="slide active">
-            <div class="slide-placeholder">
-              <span class="ph-icon">📸</span>
-              <span>Ֆոտո 1</span>
-            </div>
+            <img src="https://uploads.onecompiler.io/43gpeysj6/44gbepdr5/aghjikner2.png" alt="...">
           </div>
           <div class="slide">
-            <div class="slide-placeholder">
-              <span class="ph-icon">📸</span>
-              <span>Ֆոտո 2</span>
-            </div>
+            <img src="https://uploads.onecompiler.io/43gpeysj6/44gbepdr5/nkar.png" alt="...">
           </div>
           <div class="slide">
-            <div class="slide-placeholder">
-              <span class="ph-icon">📸</span>
-              <span>Ֆոտո 3</span>
-            </div>
+            <img src="https://uploads.onecompiler.io/43gpeysj6/44gbepdr5/3.png" alt="...">
           </div>
           <div class="slide">
-            <div class="slide-placeholder">
-              <span class="ph-icon">📸</span>
-              <span>Ֆոտո 4</span>
-            </div>
+            <img src="https://uploads.onecompiler.io/43gpeysj6/44gbepdr5/tghaner.png" alt="...">
           </div>
           <div class="slide">
-            <div class="slide-placeholder">
-              <span class="ph-icon">📸</span>
-              <span>Ֆոտո 5</span>
-            </div>
+            <img src="https://uploads.onecompiler.io/43gpeysj6/44gbepdr5/aghjikner.png" alt="...">
           </div>
         </div>
 
@@ -730,30 +763,32 @@
       </div>
 
       <div class="slide-dots" id="slideDots"></div>
-</div>
+    </div>
     <!-- /gallery -->
+
     <!-- ═══ LOCATION ═══ -->
     <div class="location-section" id="locationEl">
 
       <div class="location-divider">
-        <span class="location-icon">📍</span>
+        <div class="gallery-title">Ավարտական միջոցառումը տեղի կունենա ՝ </div>
       </div>
 
       <!-- ԴՊՐՈՑԻ ԱՆՈՒՆԸ — փոխիր -->
-      <div class="school-name">ԴՊՐՈՑԻ ԱՆՈՒՆԸ</div>
+    <div class="school-name"> Գետազատ համայնքի <br> Նորայր Մանասերյանի անվան միջնակարգ դպրոցում</div>
 
       <!-- ՀԱՍՑԵՆ — փոխիր -->
-      <div class="school-address">ՀԱՍՑԵՆ, ՔԱՂԱՔ</div>
+      <div class="school-address">Գետազատ գյուղ
+Բաղրամյան փող., 1/1 շենք</div>
 
       <!-- Կոճակ — href-ում Google Maps հղումը դիր (սովորական, ոչ embed) -->
       <a class="directions-btn" id="directionsBtn" href="#" onclick="toggleMap(event)">
-        <span>Ինչպես հասնել</span>
+        <span>Տեսնել քարտեզում</span>
       </a>
 
       <!-- ՔԱՐՏԵԶ — src-ում Google Maps embed հղումը դիր -->
       <div class="map-frame" id="mapFrame">
         <iframe
-          src="YOUR_GOOGLE_MAPS_EMBED_URL"
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d917.4342969573129!2d44.56132460660936!3d40.03338626741856!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x406ab6250c45aae7%3A0x806692ca954bce1d!2sGetazat%20basic%20school!5e0!3m2!1sen!2sam!4v1773576105727!5m2!1sen!2sam"
           allowfullscreen=""
           loading="lazy"
           referrerpolicy="no-referrer-when-downgrade">
@@ -762,6 +797,12 @@
 
     </div>
     <!-- /location -->
+
+    <!-- ═══ CLOSING IMAGE ═══ -->
+    <!-- src-ը փոխիր քո նկարի հղումով -->
+    <div class="closing-img-wrap" id="closingImgEl">
+      <img src="https://uploads.onecompiler.io/43gpeysj6/44gbepdr5/2.png" alt="Graduation">
+    </div>
 
     <!-- ═══ CLOSING ═══ -->
     <div class="closing-section" id="closingEl">
@@ -832,7 +873,8 @@
             setTimeout(() => document.getElementById('calendarEl').classList.add('visible'), 850);
             setTimeout(() => document.getElementById('galleryEl').classList.add('visible'), 1150);
             setTimeout(() => document.getElementById('locationEl').classList.add('visible'), 1450);
-            setTimeout(() => document.getElementById('closingEl').classList.add('visible'), 1700);
+            setTimeout(() => document.getElementById('closingImgEl').classList.add('visible'), 1700);
+            setTimeout(() => document.getElementById('closingEl').classList.add('visible'), 2000);
           }, 550);
         }
       }
@@ -840,14 +882,12 @@
     }
 
     /* ── Slideshow ── */
-    const slides     = Array.from(document.querySelectorAll('.slide'));
-    const dotsWrap   = document.getElementById('slideDots');
-    const prevBtn    = document.getElementById('prevBtn');
-    const nextBtn    = document.getElementById('nextBtn');
+    const slides   = Array.from(document.querySelectorAll('.slide'));
+    const dotsWrap = document.getElementById('slideDots');
+    const prevBtn  = document.getElementById('prevBtn');
+    const nextBtn  = document.getElementById('nextBtn');
 
-    let current         = 0;
-    let autoTimer       = null;
-    const AUTO_INTERVAL = 3500;
+    let current = 0;
 
     /* Build dots */
     slides.forEach((_, i) => {
@@ -867,18 +907,8 @@
       getDots()[current].classList.add('active');
     }
 
-    function startAuto() {
-      clearInterval(autoTimer);
-      autoTimer = setInterval(() => goTo(current + 1), AUTO_INTERVAL);
-    }
-    function stopAuto() { clearInterval(autoTimer); }
-
-    prevBtn.addEventListener('click', () => {
-      goTo(current - 1);
-    });
-    nextBtn.addEventListener('click', () => {
-      goTo(current + 1);
-    });
+    prevBtn.addEventListener('click', () => goTo(current - 1));
+    nextBtn.addEventListener('click', () => goTo(current + 1));
 
     /* Swipe (mobile) */
     let touchStartX = 0;
@@ -888,11 +918,17 @@
       const dx = e.changedTouches[0].clientX - touchStartX;
       if (Math.abs(dx) > 40) {
         goTo(dx < 0 ? current + 1 : current - 1);
-        }
+      }
     });
 
-    /* Start auto-play after gallery animates in */
-    setTimeout(startAuto, 1800);
+    /* Map toggle */
+    function toggleMap(e) {
+      e.preventDefault();
+      const mapFrame = document.getElementById('mapFrame');
+      const btn      = document.getElementById('directionsBtn');
+      const isOpen   = mapFrame.classList.toggle('open');
+      btn.querySelector('span:last-child').textContent = isOpen ? 'Թաքցնել քարտեզը' : 'Ինչպես հասնել';
+    }
   </script>
 </body>
 </html>
